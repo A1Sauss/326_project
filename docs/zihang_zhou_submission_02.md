@@ -1,0 +1,5 @@
+I worked with Matt on the model.py that he created. After Matt created the original model.py, I added, deleted, modified some fields in different models. For example, I added date and tag in Review class. Deleted preReq, likes and dislikes in Course class. Modifed data field such as changed teacher from a charfield to foreignkey, changed the range of starRating field, changed text field from charfield to textfield, etc. Then I created a new class called teacher to match the teacher field i modified in class Course. I changed a lot of details in models to make it fit with our plan.
+
+Then, I wrote the second version of admin.py and after discussion we decided to use the one I created. For most part, I used list_display to show variables horizontally, and I also used list_filter to create a search bar based on title and date of reviews.
+
+Lastly, after each of us wrote parts of the project, I checked the website that we created to make sure no big bugs such as loops exist and identified some codes that we will need to improve next time.
