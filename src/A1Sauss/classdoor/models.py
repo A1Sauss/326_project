@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 #Version 1.4
 #Matt, Zander, Zihang
@@ -73,7 +76,7 @@ class Review(models.Model):
    tags = models.CharField(max_length = 10, help_text = "Describe course difficulty as easy/medium/hard/fun/boring/netural")
    courseOfReview = models.ForeignKey('Course', help_text="Select a course for this description",  on_delete=models.SET_NULL, null=True)
    #will figure out the proper way to automatically add author info since every review is not anonymous or written through different accounts
-   author = models.ForeignKey('User', help_text="Select a user for this review",  on_delete=models.SET_NULL, null=True)
+   author = models.ForeignKey('ClassdoorUser', help_text="Select a user for this review",  on_delete=models.SET_NULL, null=True)
  
    class Meta:
        ordering = ['title']
@@ -109,14 +112,14 @@ class University(models.Model):
 
 #-------------------part 5------------------------#
  
-class User(models.Model):
+class ClassdoorUser(models.Model):
    """Model representing an user."""
 
+   user = models.OneToOneField(User, on_delete=models.CASCADE)
    username = models.CharField(max_length=15)
-   email = models.CharField(max_length=30)
-   password = models.CharField(max_length=20)
    #will figure out how to properly represent the major of the user
-   major = models.ManyToManyField('Subject')
+   major = models.ForeignKey('Subject', on_delete=models.SET_NULL, null=True)
+   school = models.ForeignKey('University',  on_delete=models.SET_NULL, null=True, related_name='+')
    writtenReviews = models.ManyToManyField('Review', blank=True)
    
    class Meta:
@@ -129,6 +132,15 @@ class User(models.Model):
    def __str__(self):
        """String for representing the Model object."""
        return f'{self.username}'
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        ClassdoorUser.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.classdooruser.save()
 
 #-------------------part 6------------------------#
  

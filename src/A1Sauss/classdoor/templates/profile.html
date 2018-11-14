@@ -52,10 +52,10 @@
       <div class="profile-card-inner">
             {% load static %}
             <img src="{% static "images/test-pro-pic.gif" %}" class="profile-pic">
-            <h4 class="username" align="middle">mcdahl</h4>
+            <h4 class="username" align="middle">{{user.classdooruser.username}}</h4>
             <hr class="bold-hr">
-            <p class="pro-info">School: UMass Amherst</p>
-            <p class="pro-info">Major: Computer Science</p>
+            <p class="pro-info">School: {{user.classdooruser.school}}</p>
+            <p class="pro-info">Major: {{user.classdooruser.major}}</p>
             <hr>
             <p class="pro-info">Email: mcdahl@umass.edu</p>
             <p class="pro-info">Password: ********</p>

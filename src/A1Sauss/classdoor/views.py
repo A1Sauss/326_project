@@ -83,11 +83,15 @@ def feed(request):
 def login(request):
     return render(request, "login.html")
 
-def profile(request):
+def profile(request, id):
 	courses = Course.objects.all()[2:5]
 	reviews = Review.objects.all()[2:5]
-	
-	context = {"reviews": reviews, "courses": courses}
+	user = User.objects.get(pk=id)
+	user.classdooruser.school = University.objects.all()[1]
+	user.classdooruser.username = 'mcduser1'
+	user.classdooruser.major = Subject.objects.all()[2]
+	user.save()
+	context = {"reviews": reviews, "courses": courses, "user": user}
 	return render(request, "profile.html", context=context)
 
 def review(request, id):
