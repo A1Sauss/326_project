@@ -115,15 +115,14 @@ class University(models.Model):
 class ClassdoorUser(models.Model):
    """Model representing an user."""
 
-   user = models.OneToOneField(User, on_delete=models.CASCADE)
-   username = models.CharField(max_length=15)
+   user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
    #will figure out how to properly represent the major of the user
    major = models.ForeignKey('Subject', on_delete=models.SET_NULL, null=True)
    school = models.ForeignKey('University',  on_delete=models.SET_NULL, null=True, related_name='+')
    writtenReviews = models.ManyToManyField('Review', blank=True)
    
    class Meta:
-       ordering = ['username']
+       ordering = ['user']
 
    def get_absolute_url(self):
        """Returns the url to access a particular author instance."""
@@ -131,7 +130,7 @@ class ClassdoorUser(models.Model):
 
    def __str__(self):
        """String for representing the Model object."""
-       return f'{self.username}'
+       return f'{self.user}'
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

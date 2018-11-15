@@ -1,4 +1,5 @@
-from classdoor.models import Subject, Course, University, Review, Teacher
+from classdoor.models import Subject, Course, University, Review, Teacher, ClassdoorUser
+from django.contrib.contenttypes.models import ContentType
 from faker import Faker
 from django.contrib.auth.models import User
 from datetime import timedelta
@@ -64,6 +65,36 @@ for i in range(1, 10):
 
     c.save()
     courses.append(c)
+
+# Create and add users
+users = []
+print("Generated users:")
+for i in range(1,30):
+    username = fake.first_name().lower()[0] + fake.last_name().lower()
+    email = f"{username}@326.edu"
+    password = username
+    user = User.objects.create_user(username, email, password)
+    user.first_name = fake.first_name()
+    user.last_name = fake.last_name()
+    user.save()
+    users.append(user)
+    print(f"  username: {username}, password: {password}")
+
+# Create Courses
+classdoorUsers = []
+for cuser in users:
+    uuser = cuser
+    umajor = subjects[fake.random_int(0,len(subjects)-1)]
+    umajor.save()
+    uschool = unis[fake.random_int(0, len(unis) - 1)]
+    uschool.save()
+
+    u = ClassdoorUser(user=uuser,
+              major=umajor,
+              school=uschool)
+
+    u.save()
+    classdoorUsers.append(u)
 
 
 # Create Reviews
