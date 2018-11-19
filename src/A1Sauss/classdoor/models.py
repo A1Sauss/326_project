@@ -61,13 +61,29 @@ class Teacher(models.Model):
    
 class Review(models.Model):
    """Model representing a review."""
+    grade_choices = (
+      ('a','A'),
+      ('a-', 'A-'),
+      ('b+','B+'),
+      ('b','B'),
+      ('b-','B-'),
+      ('c+', 'C+'),
+      ('c', 'C'),
+      ('c-', 'C-'),
+      ('d+', 'D+'),
+      ('d', 'D'),
+      ('d', 'D-'),
+      ('f', 'F')
+    )
+
    title = models.CharField(max_length=200)
    text = models.TextField(max_length=500, help_text='Enter your review for this class')
    #will figure out how to put a range on the rating
    #decimal fields do not take a default
    starRating = models.DecimalField(max_digits=2, decimal_places=1)
-   #not sure grade using numbers? will figure out how to properly present grade
-   gradeReceived = models.DecimalField(max_digits=2, decimal_places=1)
+
+   gradeReceived = models.CharField(max_length=2, choices = grade_choices, default = 'b');
+
    date = models.DateField(null=True, blank=True)
    #will figure out how to create tags for people to choose instead of entering them
    tags = models.CharField(max_length = 10, help_text = "Describe course difficulty as easy/medium/hard/fun/boring/netural")

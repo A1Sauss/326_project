@@ -2,6 +2,10 @@ import re
 from django.shortcuts import render
 from classdoor.models import Course, Teacher, Review, University, User, Subject
 from django.db.models.query import EmptyQuerySet
+from django.forms import ModelForm
+from django.contrib.auth.decorators import permission_required
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 def index(request):
@@ -95,8 +99,46 @@ def review(request, id):
     course_object = Course.objects.get(pk=id)
     course_name = course_object.name
 
+    form = WriteReviewForm(request.POST)
+
+    if request.method == 'POST':
+
+        if form.is_valid():
+
+        #Query database and add new review for a specific class instance given by the id passed as parameter
+
+        course_instance.starRating = form.cleaned_data['starRating']
+        course_instance.gradeReceived = form.cleaned_data['gradeReceived']
+        course_instance.title = form.cleaned_data['title']
+        course_instance.text = form.cleaned_data['text']
+        course_instance.save()
+
+        # redirect to class page:
+        #return HttpResponseRedirect(reverse('course-page', args = "id") )
+        #look up reverse() method Django
+        #Appears to involve defining shortcuts in project urls.py
+    else:
+        #Handle case it isn't a post? If you're writing a review it should be writing to the database
+        #There shouldn't be a default form...
+
+
+
     context = {
         "course_name": course_name,
         "this_course": course_object,
+        "WriteReviewForm": write_review_form,
+
     }
     return render(request, "WriteReviewTemplate.html", context = context)
+    #NEED TO CHANGE TEMPLATE TO ACCOMODATE DJANGO FORMS
+
+#@permission_required('catalog.can_mark_returned')
+#Need to be logged in -> else redirect to login page
+class WriteReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['starRating', 'gradeReceived', 'title', 'text']
+        help_texts = {
+            'title': _('An awesome title for this review!'),
+            'text':_('Tell us about your experience in this cass')
+        }
