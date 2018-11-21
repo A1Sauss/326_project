@@ -137,9 +137,9 @@ def review(request, id):
             course_object.reviews.add(new_review)
 
             # new_review.save()
-            reviews = Review.objects.all()
-            for r in reviews:
-                print(r.title)
+            # reviews = Review.objects.all()
+            # for r in reviews:
+            #     print(r.title)
                 #Review I added isn't showing up, not sure why
 
         # redirect to class page:
