@@ -1,5 +1,5 @@
 body {
-    background: #F2f2f2;
+    background: #F5f5f5;
 }
 
 .classCard {
@@ -63,7 +63,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    background: url("https://a.1stdibscdn.com/archivesE/upload/f_30733/f_88765331508868313940/Well_master.jpg?width=800");
+    background:#4385F4;
     overflow: hidden;
     position: absolute;
     width: 150px;

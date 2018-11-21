@@ -1,4 +1,4 @@
-from classdoor.models import Subject, Course, University, Review, Teacher
+from classdoor.models import Subject, Course, University, Review, Teacher, ClassdoorUser
 from faker import Faker
 from django.contrib.auth.models import User
 from datetime import timedelta
@@ -24,7 +24,7 @@ for subj in subjects:
 # Create Universities
 unis = []
 
-for i in range(1, 3):
+for i in range(1, 5):
     uName = "University of " + fake.city()
     uAddress = fake.address()
 
@@ -65,6 +65,29 @@ for i in range(1, 10):
     c.save()
     courses.append(c)
 
+users = []
+print("Generated users:")
+for i in range(1,20):
+    firstName = fake.first_name()
+    lastName = fake.last_name()
+    username = firstName.lower()[0] + lastName.lower() + str(fake.random_int(0,999))
+    email = f"{username}@326.edu"
+    password = lastName
+    user = User.objects.create_user(username, email, password)
+    user.first_name = firstName
+    user.last_name = lastName
+    user.save()
+    users.append(user)
+    print(f"  username: {username}, password: {password}")
+
+#USE THIS TO INSERT DATA FOR EACH USER
+cdoorusers = ClassdoorUser.objects.all()
+for cUser in cdoorusers:
+    cUser.school = unis[fake.random_int(0, len(unis)-1)]
+    cUser.major = subjects[fake.random_int(0, len(subjects)-1)]
+    cUser.profileImage = "profile-" + str(fake.random_int(1,16)) + ".gif"
+    cUser.save()
+
 
 # Create Reviews
 reviews = []
@@ -76,18 +99,27 @@ for i in range(0, len(courses) - 1):
     for j in range(1, fake.random_int(3, 20)):
         rTitle = fake.text(25)
         rText = fake.text(200)
+        rAuthor = cdoorusers[fake.random_int(0, len(cdoorusers)-1)]
+
 
         review = Review(title=rTitle,
                         text=rText,
                         gradeReceived=rGrade,
                         starRating=rStarRating,
-                        courseOfReview=currClass)
+                        courseOfReview=currClass,
+                        author=rAuthor)
 
         review.save()
         reviews.append(review)
 
         currClass.reviews.add(review)
         currClass.save()
+
+for eachUser in cdoorusers:
+    toAdd =[]
+    for eachReview in reviews:
+        if(eachReview.author == eachUser):
+            eachUser.reviewsWritten.add(eachReview)
 
 print('Subjects:')
 for s in Subject.objects.all():

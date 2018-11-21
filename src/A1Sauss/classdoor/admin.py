@@ -1,5 +1,5 @@
 from django.contrib import admin
-from classdoor.models import Course, Teacher, Review, University, User, Subject
+from classdoor.models import Course, Teacher, Review, University, ClassdoorUser, Subject
 
 #version 2
 #Zihang, Matt
@@ -25,8 +25,8 @@ class ReviewAdmin(admin.ModelAdmin):
 class UniversityAdmin(admin.ModelAdmin):
     list_display = ('name', 'location')
 
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
+@admin.register(ClassdoorUser)
+class ClassdoorUserAdmin(admin.ModelAdmin):
     #default display
     pass
 

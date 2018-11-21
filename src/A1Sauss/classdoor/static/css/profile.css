@@ -3,6 +3,7 @@
 	margin-top: 300px;
 	margin-left: 30px;
 	margin-right: 100px;
+  background-color: #fff6dd;
 }
 
 .bold-hr{
@@ -170,6 +171,7 @@
 	height: 100px;
 	width: 100px;
 	border: 3px solid #000;
+  background: #ffffff;
 }
 
 .username{
@@ -223,9 +225,19 @@ td{
 
 .content-background{
 	background-color: #fff6dd;
-	height: 950px;
+	height: auto;
+  padding-bottom: 10px;
+  padding-left: 10px;
 }
 
 .btn{
 	margin-top: -80px;
+}
+
+.must-login{
+  margin-top: 200px;
+}
+
+.container-whole{
+  background-color: #ff0000;
 }

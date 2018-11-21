@@ -1,10 +1,12 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 #Version 1.4
 #Matt, Zander, Zihang
-#10/26/2018, 11/5/2018
+#10/26/2018, 11/15/2018
 
 #-------------------part 1------------------------#
 
@@ -79,7 +81,6 @@ class Review(models.Model):
    tags = models.CharField(max_length=100, choices = tag_choices, blank = True);
    #tags = models.ManyToManyField('Tags', help_text="Select tags for this class", blank=True)
    courseOfReview = models.ForeignKey('Course', help_text="Select a course for this description",  on_delete=models.SET_NULL, null=True)
-   #will figure out the proper way to automatically add author info since every review is not anonymous or written through different accounts
    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
  
    class Meta:
@@ -116,18 +117,16 @@ class University(models.Model):
 
 #-------------------part 5------------------------#
  
-class User(models.Model):
+class ClassdoorUser(models.Model):
    """Model representing an user."""
-
-   username = models.CharField(max_length=15)
-   email = models.CharField(max_length=30)
-   password = models.CharField(max_length=20)
-   #will figure out how to properly represent the major of the user
-   major = models.ManyToManyField('Subject')
-   writtenReviews = models.ManyToManyField('Review', blank=True)
+   user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+   school = models.ForeignKey('University',  on_delete=models.SET_NULL, null=True, related_name='+')
+   major = models.ForeignKey('Subject', on_delete=models.SET_NULL, null=True)
+   profileImage = models.CharField(max_length=15, default='profile-1.gif')
+   reviewsWritten = models.ManyToManyField('Review')
    
    class Meta:
-       ordering = ['username']
+       ordering = ['user']
 
    def get_absolute_url(self):
        """Returns the url to access a particular author instance."""
@@ -135,7 +134,16 @@ class User(models.Model):
 
    def __str__(self):
        """String for representing the Model object."""
-       return f'{self.username}'
+       return f'{self.user}'
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        ClassdoorUser.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.classdooruser.save()
 
 #-------------------part 6------------------------#
  

@@ -13,9 +13,8 @@ from django import forms
     #Example from class
     #renewal_date = forms.DateField(help_text="Enter a date between now and 4 weeks (default 3).")
 
-#Potentially a form for adding a class or adding a tag"""
-
 class SearchForm(forms.Form):
 	#university = forms.MultipleChoiceField();
 	#major = forms.MultipleChoiceField();
 	#class_number = forms.IntegerField();
+"""
