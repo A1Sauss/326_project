@@ -37,7 +37,24 @@
           </button>
   </div>
 
-  <div class="form-group">
+  <form action="" method="post">
+    {% csrf_token %}
+    <table>
+    <!-- {{ form.as_table }} -->
+    <span class = "formStyles">{{form.starRating}}</span>
+    <span class = "formStyles">{{form.gradeReceived}}</span>
+    <span class = "formStyles">{{form.title}}</span>
+    <span class = "formStyles">{{form.text}}</span>
+    <!-- <span class = "formStyles">{{form.tags}}</span> -->
+    </table>
+    <input type="submit" value="Submit Review" class="btn btn-primary btn-lg btn-block" id="submit-btn">
+  </form>
+
+  <!--https://stackoverflow.com/questions/5827590/css-styling-in-django-forms-->
+
+  <!--looks like you can separate each element and style them separately-->
+
+  <!-- <div class="form-group">
       <label for="exampleFormControlSelect1">What grade did you recieve in this class?</label>
       <select class="d" id="exampleFormControlSelect1">
         <option>A</option>
@@ -63,7 +80,7 @@
   <div class="form-group">
       <label for="exampleFormControlTextarea1">Write a Review</label>
       <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Tell us about your experience in this class..."></textarea>
-  </div>
+  </div> 
 
   <a class="btn btn-outline-primary" href="#" role="button">Easy</a>
   <a class="btn btn-outline-primary" href="#" role="button">Hard</a>
@@ -75,9 +92,8 @@
   <a class="btn btn-outline-primary" href="#" role="button">Lots of Homework</a>
   <a class="btn btn-outline-primary" href="#" role="button">Exam-heavy</a>
 
-  <a href = "{{this_course.get_absolute_url}}" type="button" class="btn btn-primary btn-lg btn-block" id="submit-btn">Submit Review</a>
- <!--How to link this data during Submit so it writes to the database?-->
-
+  <a href = "{{this_course.get_absolute_url}}" type="button" class="btn btn-primary btn-lg btn-block" id="submit-btn">Submit Review</a> -->
+  
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

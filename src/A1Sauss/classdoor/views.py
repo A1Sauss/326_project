@@ -2,10 +2,14 @@ import re
 from django.shortcuts import render
 from classdoor.models import Course, Teacher, Review, University, User, Subject
 from django.db.models.query import EmptyQuerySet
+#Form Imports
 from django.forms import ModelForm
+from django import forms
 from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+import datetime
+
 
 # Create your views here.
 def index(request):
@@ -105,40 +109,69 @@ def review(request, id):
 
         if form.is_valid():
 
-        #Query database and add new review for a specific class instance given by the id passed as parameter
+            title = form.cleaned_data['title']
+            text = form.cleaned_data['text']
+            starRating = form.cleaned_data['starRating']
+            gradeReceived = form.cleaned_data['gradeReceived']
+            date = datetime.date.today()
+            tags = form.cleaned_data['tags']
+            courseOfReview = course_object
+            #author = "Default"
+            
 
-        course_instance.starRating = form.cleaned_data['starRating']
-        course_instance.gradeReceived = form.cleaned_data['gradeReceived']
-        course_instance.title = form.cleaned_data['title']
-        course_instance.text = form.cleaned_data['text']
-        course_instance.save()
+            new_review = Review.objects.create(
+                title = title,
+                text = text,
+                starRating = starRating,
+                gradeReceived = gradeReceived,
+                date = date,
+                tags = tags,
+                courseOfReview = courseOfReview,
+                )
+
+
+            new_review.save()
+            course_object.reviews.add(new_review)
+
+            # new_review.save()
+            reviews = Review.objects.all()
+            for r in reviews:
+                print(r.title)
+                #Review I added isn't showing up, not sure why
 
         # redirect to class page:
-        #return HttpResponseRedirect(reverse('course-page', args = "id") )
-        #look up reverse() method Django
-        #Appears to involve defining shortcuts in project urls.py
-    else:
-        #Handle case it isn't a post? If you're writing a review it should be writing to the database
-        #There shouldn't be a default form...
+            return HttpResponseRedirect(course_object.get_absolute_url())
 
 
+
+        #else:
+        #Handle case it isn't a post? There shouldn't really be default form
 
     context = {
         "course_name": course_name,
         "this_course": course_object,
-        "WriteReviewForm": write_review_form,
-
+        "form": form,
     }
+
     return render(request, "WriteReviewTemplate.html", context = context)
-    #NEED TO CHANGE TEMPLATE TO ACCOMODATE DJANGO FORMS
 
 #@permission_required('catalog.can_mark_returned')
 #Need to be logged in -> else redirect to login page
-class WriteReviewForm(forms.ModelForm):
+class WriteReviewForm(ModelForm):
     class Meta:
         model = Review
-        fields = ['starRating', 'gradeReceived', 'title', 'text']
-        help_texts = {
-            'title': _('An awesome title for this review!'),
-            'text':_('Tell us about your experience in this cass')
+        fields = ['starRating', 'gradeReceived', 'title', 'text', 'tags']
+        #Maybe set text required for some forms
+        #labels = {'gradeReceived': ('What grade did you recieve in this class?')}
+
+        widgets ={
+            'title':forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'An awesome title for this review!'}),
+            'text':forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Tell us about your experience in this class'}),
+            'starRating': forms.Select(attrs={'class': 'form-control'}),
+            'gradeReceived': forms.Select(attrs={'class': 'form-control'}),
+            'tags': forms.CheckboxSelectMultiple(attrs={'class': 'custom-control custom-checkbox custom-control-inline'})
+        }
+        required ={
+            'gradeReceived': False,
+            'tags': False
         }

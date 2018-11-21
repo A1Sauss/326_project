@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User 
 
 #Version 1.4
 #Matt, Zander, Zihang
@@ -61,35 +62,25 @@ class Teacher(models.Model):
    
 class Review(models.Model):
    """Model representing a review."""
-    grade_choices = (
-      ('a','A'),
-      ('a-', 'A-'),
-      ('b+','B+'),
-      ('b','B'),
-      ('b-','B-'),
-      ('c+', 'C+'),
-      ('c', 'C'),
-      ('c-', 'C-'),
-      ('d+', 'D+'),
-      ('d', 'D'),
-      ('d', 'D-'),
-      ('f', 'F')
-    )
+   grade_choices = (('a','A'), ('a-', 'A-'), ('b+','B+'), ('b','B'), ('b-','B-'), ('c+', 'C+'), ('c', 'C'), ('c-', 'C-'), ('d+', 'D+'), ('d', 'D'), ('d', 'D-'), ('f', 'F'))
+   tag_choices = (('easy','Easy'), ('hard','Hard'), ('Interesting','Interesting'), ('boring','Boring'), ('attendence','Attendence Graded'), ('gen-ed','Gen-Ed'), ('professor','Great Professsor'), ('homework','Lots of Homework'), ('exam','Exam-Heavy'))
+   star_choices = (('.5','.5'), ('1','1'), ('1.5','1.5'), ('2','2'), ('2.5','2.5'), ('3','3'), ('3.5','3.5'), ('4','4'), ('4.5','4.5'), ('5','5'))
 
    title = models.CharField(max_length=200)
-   text = models.TextField(max_length=500, help_text='Enter your review for this class')
+   text = models.TextField(max_length=500)
    #will figure out how to put a range on the rating
    #decimal fields do not take a default
-   starRating = models.DecimalField(max_digits=2, decimal_places=1)
+   starRating = models.CharField(max_length=3, choices = star_choices);
 
-   gradeReceived = models.CharField(max_length=2, choices = grade_choices, default = 'b');
+   gradeReceived = models.CharField(max_length=2, choices = grade_choices, blank = True);
 
    date = models.DateField(null=True, blank=True)
    #will figure out how to create tags for people to choose instead of entering them
-   tags = models.CharField(max_length = 10, help_text = "Describe course difficulty as easy/medium/hard/fun/boring/netural")
+   tags = models.CharField(max_length=100, choices = tag_choices, blank = True);
+   #tags = models.ManyToManyField('Tags', help_text="Select tags for this class", blank=True)
    courseOfReview = models.ForeignKey('Course', help_text="Select a course for this description",  on_delete=models.SET_NULL, null=True)
    #will figure out the proper way to automatically add author info since every review is not anonymous or written through different accounts
-   author = models.ForeignKey('User', help_text="Select a user for this review",  on_delete=models.SET_NULL, null=True)
+   author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
  
    class Meta:
        ordering = ['title']
@@ -166,3 +157,20 @@ class Subject(models.Model):
    def __str__(self):
        """String for representing the Model object."""
        return f'{self.name}'
+
+"""#-------------------part 7------------------------#
+ 
+class Tags(models.Model):
+   #Model representing Tags.
+
+   tag_choices = (('easy','Easy'), ('hard','Hard'), ('Interesting','Interesting'), ('boring','Boring'), ('attendence','Attendence Graded'), ('gen-ed','Gen-Ed'), ('professor','Great Professsor'), ('homework','Lots of Homework'), ('exam','Exam-Heavy'))
+   tags = models.CharField(max_length=100, choices = tag_choices, blank = True);
+   courseOfTag = models.ForeignKey('Course', help_text="Select a course for this description",  on_delete=models.SET_NULL, null=True)
+   class Meta:
+       ordering = ['tags']
+
+   def __str__(self):
+       #String for representing the Model object.
+       return f'{self.name}'
+
+       """
