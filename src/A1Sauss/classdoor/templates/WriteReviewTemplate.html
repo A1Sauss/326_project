@@ -17,8 +17,8 @@
 
 <div id="body-elements">
 <!------ Star Rating ---------->
-<h2>{{course_name}}</h2>
-<h3>How would you rate this class?</h3>
+<h1>{{course_name}}</h1>
+<h5>How would you rate this class?</h5>
   <div class="review-block-rate">
           <button type="button" class="starreview btn btn-warning btn-xs star-btn" aria-label="Left Align" data-cd-starnum="1">
           <i class="material-icons">star</i>
@@ -36,23 +36,29 @@
           <i class="material-icons">star</i>
           </button>
   </div>
-
   <form action="" method="post">
     {% csrf_token %}
     <table>
     <!-- {{ form.as_table }} -->
-    <!-- <span class = "formStyles">{{form.starRating}}</span> -->
+    <span class = "formStyles">{{form.starRating}}</span>
+
+    <!-- <value for="id_starRating">2</value> -->
+    <h5>What grade did you recieve in this class?</h5>
     <span class = "formStyles">{{form.gradeReceived}}</span>
+    <h5>Review Title</h5>
     <span class = "formStyles">{{form.title}}</span>
+    <h5>Review</h5>
     <span class = "formStyles">{{form.text}}</span>
     <!-- <span class = "formStyles">{{form.tags}}</span> -->
     </table>
-    <input type="submit" value="Submit Review" class="btn btn-primary btn-lg btn-block" id="submit-btn">
+    <input class="btn btn-primary btn-lg" type="submit" value="Submit Review">
+    <!-- <input type="submit" value="Submit Review"> -->
+  <!--   <input type="submit" value="Submit Review" class="btn btn-primary btn-lg btn-block" id="submit-btn"> -->
   </form>
 
-  <div class="form-group">
+<div class="form-group">
   	<input type="text" id="starreviewInput" style="display: none;"></input>
-  </div>
+  </div> 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

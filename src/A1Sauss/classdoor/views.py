@@ -172,7 +172,7 @@ class WriteReviewForm(ModelForm):
             'text':forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Tell us about your experience in this class'}),
             'starRating': forms.Select(attrs={'class': 'form-control'}),
             'gradeReceived': forms.Select(attrs={'class': 'form-control'}),
-            'tags': forms.CheckboxSelectMultiple(attrs={'class': 'custom-control custom-checkbox custom-control-inline'})
+            'tags': forms.CheckboxSelectMultiple#(attrs={'class': 'custom-control custom-checkbox custom-control-inline'})
         }
         required ={
             'gradeReceived': False,

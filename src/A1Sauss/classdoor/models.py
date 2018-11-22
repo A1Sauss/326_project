@@ -65,8 +65,8 @@ class Teacher(models.Model):
 class Review(models.Model):
    """Model representing a review."""
    grade_choices = (('a','A'), ('a-', 'A-'), ('b+','B+'), ('b','B'), ('b-','B-'), ('c+', 'C+'), ('c', 'C'), ('c-', 'C-'), ('d+', 'D+'), ('d', 'D'), ('d', 'D-'), ('f', 'F'))
-   tag_choices = (('easy','Easy'), ('hard','Hard'), ('Interesting','Interesting'), ('boring','Boring'), ('attendence','Attendence Graded'), ('gen-ed','Gen-Ed'), ('professor','Great Professsor'), ('homework','Lots of Homework'), ('exam','Exam-Heavy'))
-   star_choices = (('.5','.5'), ('1','1'), ('1.5','1.5'), ('2','2'), ('2.5','2.5'), ('3','3'), ('3.5','3.5'), ('4','4'), ('4.5','4.5'), ('5','5'))
+   tag_choices = (('easy','Easy'), ('hard','Hard'), ('Interesting','Interesting'), ('boring','Boring'), ('attendence','Attendence Graded'), ('gen-ed','Gen-Ed'), ('professor','Great Professsor'), ('homework','Lots of Homework'), ('exam', 'Exam-Heavy'))
+   star_choices= (('5','5'),('4','4'),('3','3'),('2','2'),('1','1'))
 
    title = models.CharField(max_length=200)
    text = models.TextField(max_length=500)
