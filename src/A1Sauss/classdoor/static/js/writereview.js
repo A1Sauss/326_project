@@ -1,7 +1,8 @@
 $(document).ready(function () {
+    $('#id_starRating').hide();
     $('.starreview').click(function() {
         var starnum = $(this).data('cd-starnum');
-
+        
         $('.starreview').each(function(index) {
             if((index + 1) <= starnum) {
                 $(this).removeClass('btn-default btn-grey').addClass('btn-warning');
@@ -10,6 +11,6 @@ $(document).ready(function () {
             }
         });
 
-        $('#starreviewInput').val(starnum);
+        document.getElementById('id_starRating')[6-starnum].selected = true;
     });
 })
