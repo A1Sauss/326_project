@@ -81,7 +81,7 @@ class Review(models.Model):
    tags = models.CharField(max_length=100, choices = tag_choices, blank = True);
    #tags = models.ManyToManyField('Tags', help_text="Select tags for this class", blank=True)
    courseOfReview = models.ForeignKey('Course', help_text="Select a course for this description",  on_delete=models.SET_NULL, null=True)
-   author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+   author = models.ForeignKey('ClassdoorUser', on_delete=models.SET_NULL, null=True, blank=True)
  
    class Meta:
        ordering = ['title']
