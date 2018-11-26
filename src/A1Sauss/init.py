@@ -94,9 +94,9 @@ reviews = []
 for i in range(0, len(courses) - 1):
     currClass = courses[i]
     rGrade = Decimal(1)
-    rStarRating = Decimal(fake.random_int(0, 500)) / 100
 
     for j in range(1, fake.random_int(3, 20)):
+        rStarRating = Decimal(fake.random_int(0, 500)) / 100
         rTitle = fake.text(25)
         rText = fake.text(200)
         rAuthor = cdoorusers[fake.random_int(0, len(cdoorusers)-1)]
