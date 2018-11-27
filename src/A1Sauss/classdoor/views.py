@@ -71,6 +71,8 @@ def feed(request):
         query = request.GET["query"]
     if 'uni' in request.GET:
         university = request.GET["uni"]
+    elif 'university' in request.GET:
+        university = request.GET["university"]
 
     courses = Course.objects.all()
     coursesArr = []
