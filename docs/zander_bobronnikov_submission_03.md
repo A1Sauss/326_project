@@ -1,0 +1,3 @@
+I contributed to several aspects of the 3rd project submission. The main tasked I worked on was the login/logout functionality of the app. To do this,  I first copied the registration template files from the example. I also added the registration urls to the app as shown in the example. I then updated the login screen design to be consistent with our application. Next, I edited the base_generic template to only show the Login button if no user was logged in and to show the Logout button on the right side of the navbar if there was a user logged in. For logout, I made it so it redirects to the main page once logged out.
+
+In addition to this, I helped my team members on other aspects of the project and worked on part of the video to show logging in and logging out.
