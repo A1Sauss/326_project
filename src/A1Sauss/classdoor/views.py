@@ -1,28 +1,11 @@
 import re
-<<<<<<< HEAD
-from django.shortcuts import render, redirect
-=======
 #import operator
 from django.shortcuts import render
->>>>>>> zz-3
 from classdoor.models import Course, Teacher, Review, University, ClassdoorUser, Subject
 from django.db.models.query import EmptyQuerySet
-#Form Imports
-from django.forms import ModelForm
-from django import forms
-from django.contrib.auth.decorators import permission_required
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-import datetime
 from django.contrib.auth.decorators import login_required
-<<<<<<< HEAD
-from django.contrib.auth.forms import UserChangeForm
-from classdoor.forms import EditProfileForm
-#from django.contrib.auth.mixins import LoginRequiredMixin
-=======
 from django.http import HttpResponse
 #from django.db.models import Q
->>>>>>> zz-3
 
 # Create your views here.
 def index(request):
@@ -125,103 +108,17 @@ def profile(request):
 	
 	return render(request, "profile.html", context=context)
 
-@login_required
-def edit_profile(request):
-    if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
-
-        if form.is_valid():
-            form.save()
-            return redirect('/profile')
-
-    else:
-        form = EditProfileForm(instance=request.user)
-        args = {'form': form}
-        return render(request, 'profile_edit.html', args)
-	
-@login_required
 def review(request, id):
 
     course_object = Course.objects.get(pk=id)
     course_name = course_object.name
 
-    form = WriteReviewForm(request.POST)
-
-    if request.method == 'POST':
-
-        if form.is_valid():
-
-            title = form.cleaned_data['title']
-            text = form.cleaned_data['text']
-            starRating = form.cleaned_data['starRating']
-            gradeReceived = form.cleaned_data['gradeReceived']
-            date = datetime.date.today()
-            tags = form.cleaned_data['tags']
-            courseOfReview = course_object
-            author = ClassdoorUser.objects.get(user=request.user)
-            
-
-            new_review = Review.objects.create(
-                title = title,
-                text = text,
-                starRating = starRating,
-                gradeReceived = gradeReceived,
-                date = date,
-                tags = tags,
-                courseOfReview = courseOfReview,
-                author = author,
-                )
-
-
-            new_review.save()
-            course_object.reviews.add(new_review)
-
-            # new_review.save()
-            # reviews = Review.objects.all()
-            # for r in reviews:
-            #     print(r.title)
-                #Review I added isn't showing up, not sure why
-
-        # redirect to class page:
-            return HttpResponseRedirect(course_object.get_absolute_url())
-
-
-
-        #else:
-        #Handle case it isn't a post? There shouldn't really be default form
-
     context = {
         "course_name": course_name,
         "this_course": course_object,
-        "form": form,
     }
-
     return render(request, "WriteReviewTemplate.html", context = context)
 
-<<<<<<< HEAD
-#@permission_required('catalog.can_mark_returned')
-#Need to be logged in -> else redirect to login page
-class WriteReviewForm(ModelForm):
-    class Meta:
-        model = Review
-        fields = ['starRating', 'gradeReceived', 'title', 'text', 'tags']
-        #Maybe set text required for some forms
-        #labels = {'gradeReceived': ('What grade did you recieve in this class?')}
-
-        widgets ={
-            'title':forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'An awesome title for this review!'}),
-            'text':forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Tell us about your experience in this class'}),
-            'starRating': forms.Select(attrs={'class': 'form-control'}),
-            'gradeReceived': forms.Select(attrs={'class': 'form-control'}),
-            'tags': forms.CheckboxSelectMultiple#(attrs={'class': 'custom-control custom-checkbox custom-control-inline'})
-        }
-        required ={
-            'gradeReceived': False,
-            'tags': False
-        }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 #def search(request):
     #return render(request, 'search.html')
     #if 'q' in request.GET:
@@ -229,8 +126,3 @@ class WriteReviewForm(ModelForm):
 #    else:
 #        message = 'You submitted an empty form.'
 #    return HttpResponse(message)
->>>>>>> zz-3
-=======
->>>>>>> 970837e3d1d2bc8f1fd31d477b84cc458208b66d
-=======
->>>>>>> 970837e3d1d2bc8f1fd31d477b84cc458208b66d
