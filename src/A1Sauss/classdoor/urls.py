@@ -8,6 +8,7 @@ urlpatterns = [
     path("class/<int:id>", views.classpage, name="class-detail"),
     path("feed/", views.feed, name="feed"),
     path("profile/", views.profile, name="profile"),
+    path("profile/edit", views.edit_profile, name="profile_edit"),
     path("review/", RedirectView.as_view(url='/feed/',permanent=True)),
     path("review/<int:id>", views.review, name="review-detail")
 ]
