@@ -219,6 +219,7 @@ class WriteReviewForm(ModelForm):
             'gradeReceived': False,
             'tags': False
         }
+<<<<<<< HEAD
 =======
 #def search(request):
     #return render(request, 'search.html')
@@ -228,3 +229,5 @@ class WriteReviewForm(ModelForm):
 #        message = 'You submitted an empty form.'
 #    return HttpResponse(message)
 >>>>>>> zz-3
+=======
+>>>>>>> 970837e3d1d2bc8f1fd31d477b84cc458208b66d
