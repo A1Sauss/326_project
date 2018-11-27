@@ -5,4 +5,4 @@ I contributed to several aspects of the project. Specifically, I worked on creat
 
 Additionally, to render the form I needed to make changes to the review view. This included requiring a user to be logged in in order to post a review. Once a user was logged in, the page would render a WriteReviewForm and clean the data before creating a new review object and adding this object to the database (while also linking it to the reviews for the given course). After the user inputs a review for a specific course they are redirected to that course page.
 
-I also modified the WriteReviewTemplate to display the forms passed as context to the review() function in views.py. Lastly. I created a group within the init.py file called ìCourse Admin.î Any user in the course admin group has the permission to add a course.
+I also modified the WriteReviewTemplate to display the forms passed as context to the review() function in views.py. Lastly. I created a group within the init.py file called ‚ÄúCourse Admin.‚Äù Any user in the course admin group has the permission to add a course.
