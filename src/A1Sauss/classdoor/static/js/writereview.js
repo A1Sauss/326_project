@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $('#id_starRating').hide();
+    
     $('.starreview').click(function() {
         var starnum = $(this).data('cd-starnum');
         

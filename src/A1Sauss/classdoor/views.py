@@ -10,6 +10,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import datetime
 from django.contrib.auth.decorators import login_required
+#from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def index(request):
@@ -100,7 +101,7 @@ def profile(request):
 	context = {"reviews": reviews, "courses": courses, "user": request.user}
 	
 	return render(request, "profile.html", context=context)
-
+@login_required
 def review(request, id):
 
     course_object = Course.objects.get(pk=id)
@@ -119,7 +120,7 @@ def review(request, id):
             date = datetime.date.today()
             tags = form.cleaned_data['tags']
             courseOfReview = course_object
-            #author = "Default"
+            author = ClassdoorUser.objects.get(user=request.user)
             
 
             new_review = Review.objects.create(
@@ -130,6 +131,7 @@ def review(request, id):
                 date = date,
                 tags = tags,
                 courseOfReview = courseOfReview,
+                author = author,
                 )
 
 
