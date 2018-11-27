@@ -1,5 +1,10 @@
 import re
+<<<<<<< HEAD
 from django.shortcuts import render, redirect
+=======
+#import operator
+from django.shortcuts import render
+>>>>>>> zz-3
 from classdoor.models import Course, Teacher, Review, University, ClassdoorUser, Subject
 from django.db.models.query import EmptyQuerySet
 #Form Imports
@@ -10,13 +15,29 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import datetime
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from django.contrib.auth.forms import UserChangeForm
 from classdoor.forms import EditProfileForm
 #from django.contrib.auth.mixins import LoginRequiredMixin
+=======
+from django.http import HttpResponse
+#from django.db.models import Q
+>>>>>>> zz-3
 
 # Create your views here.
 def index(request):
     return render(request, "index.html")
+
+def search(request):
+    error = False
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            courses = Course.objects.filter(name=q)
+            return render(request, 'search_result.html', {'courses': courses, 'query':q})
+    return render(request, 'search_result.html', {'error':error})
 
 def classpage(request, id):
     # Get the individual course by id from url
@@ -177,6 +198,7 @@ def review(request, id):
 
     return render(request, "WriteReviewTemplate.html", context = context)
 
+<<<<<<< HEAD
 #@permission_required('catalog.can_mark_returned')
 #Need to be logged in -> else redirect to login page
 class WriteReviewForm(ModelForm):
@@ -197,3 +219,12 @@ class WriteReviewForm(ModelForm):
             'gradeReceived': False,
             'tags': False
         }
+=======
+#def search(request):
+    #return render(request, 'search.html')
+    #if 'q' in request.GET:
+#        message = 'You searched for: %r' % request.GET['q']
+#    else:
+#        message = 'You submitted an empty form.'
+#    return HttpResponse(message)
+>>>>>>> zz-3
