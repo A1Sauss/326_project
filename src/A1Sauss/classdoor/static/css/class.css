@@ -31,8 +31,15 @@ a:hover {
 }
 
 .review {
-    padding: 10px;
+    padding-top: 10px;
     margin-bottom: 20px;
+}
+
+.review-title {
+    /* padding-top: 5px; */
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: saddlebrown;
 }
 
 .review-rating {

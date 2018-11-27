@@ -45,10 +45,10 @@
             <div class="row review-section">
                 <div class="col-xs-2 col-sm-2 col-md-2 user-profile-comment">
                     <img class="user-profile-img" src="https://image.flaticon.com/icons/svg/163/163801.svg">
-                    <div class="user-profile-year">{{review.review}}</div>
-                    <div class="user-profile-year">{{review.review.get_absolute_url}}</div>
+                    <div class="user-profile-year">{{review.author}}</div>
                 </div>
                 <div class="col-md-10">
+                    <div class="review-title">{{review.review}}</div>
                     <div class="review">{{review.text}}</div>
                     <div class="review-rating">
                         <div>I rated this course a {{review.star_rating}}/5</div>
