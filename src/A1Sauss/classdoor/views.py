@@ -108,6 +108,19 @@ def profile(request):
 	
 	return render(request, "profile.html", context=context)
 
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            return redirect('/profile')
+    else:
+        form = EditProfileForm(instance=request.user)
+        args = {'form': form}
+        return render(request, 'profile_edit.html', args)
+
 def review(request, id):
 
     course_object = Course.objects.get(pk=id)
