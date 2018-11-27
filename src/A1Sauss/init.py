@@ -5,6 +5,10 @@ from datetime import timedelta
 from decimal import *
 import textwrap
 
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
+
+
 fake = Faker()
 
 # grades = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F"]
@@ -145,6 +149,13 @@ adminuser.save()
 adminuser.is_superuser = True
 adminuser.is_staff = True
 adminuser.save()
+
+new_group, created = Group.objects.get_or_create(name ='Course Admin')
+perm = Permission.objects.get(name ='Can add course')
+new_group.permissions.add(perm)
+
+print("group Course Admin added with permissions to add a course")
+
 message = f"""
 ====================================================================
 The database has been setup with the following credentials:
