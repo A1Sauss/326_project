@@ -64,12 +64,25 @@ def classpage(request, id):
 
 def feed(request):
     context = {}
+    
+    query = None
+    university = None
+    if 'query' in request.GET:
+        query = request.GET["query"]
+    if 'uni' in request.GET:
+        university = request.GET["uni"]
 
     courses = Course.objects.all()
     coursesArr = []
 
     for course in courses:
         courseData = {}
+        
+        if query and not query.lower() in course.name.lower():
+            continue
+        
+        if university and not university.lower() in course.university_name.name:
+            continue
 
         numIndex = re.search("\d", course.name)
 
