@@ -1,5 +1,5 @@
 import re
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from classdoor.models import Course, Teacher, Review, University, ClassdoorUser, Subject
 from django.db.models.query import EmptyQuerySet
 #Form Imports
@@ -10,6 +10,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import datetime
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserChangeForm
+from classdoor.forms import EditProfileForm
 #from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
@@ -101,6 +103,20 @@ def profile(request):
 	context = {"reviews": reviews, "courses": courses, "user": request.user}
 	
 	return render(request, "profile.html", context=context)
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            return redirect('/profile')
+
+    else:
+        form = EditProfileForm(instance=request.user)
+        args = {'form': form}
+        return render(request, 'profile_edit.html', args)
 	
 @login_required
 def review(request, id):

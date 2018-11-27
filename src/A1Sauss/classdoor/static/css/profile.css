@@ -241,3 +241,7 @@ td{
 .container-whole{
   background-color: #ff0000;
 }
+
+.profileEditForm{
+  margin-top: 50px;
+}

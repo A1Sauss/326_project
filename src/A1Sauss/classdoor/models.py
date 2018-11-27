@@ -167,20 +167,23 @@ class Subject(models.Model):
        """String for representing the Model object."""
        return f'{self.name}'
 
-"""#-------------------part 7------------------------#
+#-------------------part 7------------------------#
  
-class Tags(models.Model):
-   #Model representing Tags.
+# class Tag(models.Model):
+#    #Model representing Tags.
 
-   tag_choices = (('easy','Easy'), ('hard','Hard'), ('Interesting','Interesting'), ('boring','Boring'), ('attendence','Attendence Graded'), ('gen-ed','Gen-Ed'), ('professor','Great Professsor'), ('homework','Lots of Homework'), ('exam','Exam-Heavy'))
-   tags = models.CharField(max_length=100, choices = tag_choices, blank = True);
-   courseOfTag = models.ForeignKey('Course', help_text="Select a course for this description",  on_delete=models.SET_NULL, null=True)
-   class Meta:
-       ordering = ['tags']
+#    tag_choices = (('easy','Easy'), ('hard','Hard'), ('Interesting','Interesting'), ('boring','Boring'), ('attendence','Attendence Graded'), ('gen-ed','Gen-Ed'), ('professor','Great Professsor'), ('homework','Lots of Homework'), ('exam','Exam-Heavy'))
 
-   def __str__(self):
-       #String for representing the Model object.
-       return f'{self.name}'
+#     ArrayField(
+#       models.CharField(max_length=100, choices = tag_choices, blank = True);
+#       size=8,
+#     ),
 
-       """
+#    class Meta:
+#        ordering = ['tags']
 
+#    def __str__(self):
+#        #String for representing the Model object.
+#        return f'{self.name}'
+
+#https://docs.djangoproject.com/en/1.11/ref/contrib/postgres/fields/#arrayfield
