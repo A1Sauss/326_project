@@ -4,4 +4,4 @@ For the main part of my work, I was working on getting the profile page to displ
 
 I also had to do some work to get each users reviews to show up on their profile page and I was able to accomplish this by creating faker data that mapped a random number of reviews to each user, so that each user had a set number of reviews they had written and with Spencers work, we can now add reviews from a users profile and have it show up in the database and website accordingly.
 
-Lastly, I worked on writing a decent bit of the submission docs as well as making a part of the video.
+Lastly, I made a form for a user to be able to edit there username or email.
