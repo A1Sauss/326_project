@@ -1,0 +1,5 @@
+I personally ran into a bunch of problems with software and hardware updates, considering I had to factory reset my computer just before the break. I was able to get things running smoothly in most areas, but still had issues running Django. Although this did hinder my ability to work effectively, I still made an effort to contribute as much as I could. I collected and put together all the screen-casts for the video and recorded my own as well. 
+
+I then continued to edit and stich the clips together in an elegant manner, in order to make the content clear and easily understood. I provided my ideas to several other aspects of the 3rd project submission, especially regarding the login/logout functionality of the app.
+
+I also continued to work on developing the html and css aspects of the index.html file (the home page)
