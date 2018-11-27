@@ -36,7 +36,7 @@
                             <i class="material-icons">star</i>
                         </button>
         </div>
-        <button type="button" class="btn btn-outline-white"> <a href="{{review_class_url}}">Review Class</a> <i class="fa fa-diamond ml-1"></i></button>
+        <a href="{{review_class_url}}"><button type="button" class="btn btn-outline-white">Review Class <i class="fa fa-diamond ml-1"></i></button></a>
     </div>
     <!--Jumbotron-->
 
@@ -51,6 +51,7 @@
                 <div class="col-md-10">
                     <div class="review">{{review.text}}</div>
                     <div class="review-rating">
+                        <div>I rated this course a {{review.star_rating}}/5</div>
                         <!-- <span class="vote upvote"><img src="https://image.flaticon.com/icons/svg/126/126473.svg"> </span>
                         <span class="vote downvote"><img src="https://image.flaticon.com/icons/svg/126/126098.svg"></span>
                         <span class="good-rating">+5</span> -->
@@ -61,7 +62,7 @@
         <div class="row">
             <div class="col d-flex justify-content-center">
                 <!-- Indicates a successful or positive action -->
-                <button type="button" class="btn btn-success"><a href="{{review_class_url}}">Review this class!</a></button>
+                <a href="{{review_class_url}}"><button type="button" class="btn btn-success">Review this class!</button></a>
             </div>
         </div>
     </div>
