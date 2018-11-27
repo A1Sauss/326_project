@@ -101,6 +101,7 @@ def profile(request):
 	context = {"reviews": reviews, "courses": courses, "user": request.user}
 	
 	return render(request, "profile.html", context=context)
+	
 @login_required
 def review(request, id):
 
