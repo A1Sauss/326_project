@@ -18,6 +18,17 @@ from classdoor.forms import EditProfileForm
 def index(request):
     return render(request, "index.html")
 
+def search(request):
+    error = False
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            courses = Course.objects.filter(name=q)
+            return render(request, 'search_result.html', {'courses': courses, 'query':q})
+    return render(request, 'search_result.html', {'error':error})
+
 def classpage(request, id):
     # Get the individual course by id from url
     course = Course.objects.get(pk=id)
