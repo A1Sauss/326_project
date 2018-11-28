@@ -36,23 +36,15 @@
                         </div>
 -->
                         <!--Body-->
-                        <div class="md-form">
-                          <i class="fa fa-user prefix white-text active"></i>
-                          <input type="text" id="form3" class="white-text form-control">
-                          <label for="form3" class="active">University</label>
-                        </div>
-                        <div class="md-form">
-                          <i class="fa fa-envelope prefix white-text active"></i>
-                          <input type="text" id="form2" class="white-text form-control">
-                          <label for="form2" class="active">Major</label>
-                        </div>
-                        <div class="md-form">
-                          <i class="fa fa-envelope prefix white-text active"></i>
-                          <input type="text" id="form4" class="white-text form-control">
-                          <label for="form4" class="active">Class #</label>
-                        </div>
-                        <div class="text-center mt-4">
-                          <button class="btn btn-indigo">Start Search</button>
+                         <form action="/search/" method="get">
+                                <div class="md-form">
+                                    <i class="fa fa-envelope prefix white-text active"></i>
+                                    <input class="white-text form-control" id="form1" type="text" name="q">
+                                    <label for="form1" class="active">Class</label>
+                                </div>
+                                <div class="text-center mt-4">
+                                    <button class="btn btn-indigo">Start Search</button>
+                            </form>
 <!--                          <hr class="hr-light mb-3 mt-4">-->
 <!--
                           <div class="inline-ul text-center d-flex justify-content-center">
