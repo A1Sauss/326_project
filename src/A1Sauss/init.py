@@ -64,7 +64,7 @@ for i in range(1, 10):
               averageGrade=cAvgGrade,
               starRating=cStarRating,
               subject=subject,
-              university=uni)
+              university_name=uni)
 
     c.save()
     courses.append(c)
