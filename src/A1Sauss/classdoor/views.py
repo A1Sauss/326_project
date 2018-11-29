@@ -67,12 +67,17 @@ def feed(request):
     
     query = None
     university = None
+    
     if 'query' in request.GET:
         query = request.GET["query"]
+    elif 'q' in request.GET:
+        query = request.GET["q"]
     if 'uni' in request.GET:
         university = request.GET["uni"]
     elif 'university' in request.GET:
         university = request.GET["university"]
+    elif 'u' in request.GET:
+        university = request.GET["u"]
 
     courses = Course.objects.all()
     coursesArr = []
@@ -83,7 +88,7 @@ def feed(request):
         if query and not query.lower() in course.name.lower():
             continue
         
-        if university and not university.lower() in course.university_name.name:
+        if university and not university.lower() in course.university_name.name.lower():
             continue
 
         numIndex = re.search("\d", course.name)
