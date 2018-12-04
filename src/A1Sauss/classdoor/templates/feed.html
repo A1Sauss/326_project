@@ -54,6 +54,8 @@
                 </div>
             </div>
         </li>
+    {% empty %}
+      <h1 id="noCourses">No courses matched your query</h1>
     {% endfor %}
 </ul>
 {% endblock %}

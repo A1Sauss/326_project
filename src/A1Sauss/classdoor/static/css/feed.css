@@ -73,3 +73,9 @@ body {
     flex: 1 1 auto;
     width: auto;
 }
+
+#noCourses {
+    color: #BBB;
+    margin: 0 auto;
+    text-align: center;
+}
