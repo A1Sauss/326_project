@@ -4,7 +4,6 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("search/", views.search, name="search"),
     path("class/", RedirectView.as_view(url='/feed/',permanent=True)),
     path("class/<int:id>", views.classpage, name="class-detail"),
     path("feed/", views.feed, name="feed"),
