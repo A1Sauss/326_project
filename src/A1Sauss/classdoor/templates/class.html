@@ -17,6 +17,11 @@
         <!-- <p class="mt-4"><strong>Students think this class is...</strong></p> -->
         <!-- <h1>4/5</h1> -->
         <!-- <div><i>Good! - Recommended class!</i></div> -->
+        <div>
+        {% for t in al_tags %}
+            <a class= "btn btn-outline-white" href="#" role="button">{{t}}</a>
+        {% endfor %}
+        </div>
         <hr class="my-4 rgba-white-light">
 
         <div class="review-block-rate">
@@ -36,7 +41,9 @@
                             <i class="material-icons">star</i>
                         </button>
         </div>
-        <a href="{{review_class_url}}"><button type="button" class="btn btn-outline-white">Review Class <i class="fa fa-diamond ml-1"></i></button></a>
+        <span id = "review_btn">
+            <a href="{{review_class_url}}"><button type="button" class="btn btn-warning">Review Class <i class="fa fa-diamond ml-1"></i></button></a>
+        </span>
     </div>
     <!--Jumbotron-->
 
@@ -62,7 +69,7 @@
         <div class="row">
             <div class="col d-flex justify-content-center">
                 <!-- Indicates a successful or positive action -->
-                <a href="{{review_class_url}}"><button type="button" class="btn btn-success">Review this class!</button></a>
+                <a href="{{review_class_url}}"><button type="button" class="btn-lg btn-success">Review this class!</button></a>
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from classdoor.models import Course, Teacher, Review, University, ClassdoorUser, Subject
+from classdoor.models import Course, Teacher, Review, University, ClassdoorUser, Subject, Tag
 
 #version 2
 #Zihang, Matt
@@ -33,3 +33,7 @@ class ClassdoorUserAdmin(admin.ModelAdmin):
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
     list_display = ('name', 'universityName')
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('name', 'reviews')

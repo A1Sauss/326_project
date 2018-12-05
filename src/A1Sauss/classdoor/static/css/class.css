@@ -70,3 +70,7 @@ a:hover {
 .bad-rating {
     color: red;
 }
+
+#review_btn{
+    margin-left: 10px;
+}
