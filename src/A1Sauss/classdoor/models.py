@@ -79,8 +79,8 @@ class Review(models.Model):
 
    date = models.DateField(null=True, blank=True)
    #will figure out how to create tags for people to choose instead of entering them
-   tags = models.CharField(max_length=100, choices = tag_choices, blank = True);
-   #tags = models.ManyToManyField('Tags', help_text="Select tags for this class", blank=True)
+   #tags = models.CharField(max_length=100, choices = tag_choices, blank = True);
+   tags = models.ManyToManyField('Tag', help_text="Select tags for this class", blank=True)
    courseOfReview = models.ForeignKey('Course', help_text="Select a course for this description",  on_delete=models.SET_NULL, null=True)
    author = models.ForeignKey('ClassdoorUser', on_delete=models.SET_NULL, null=True, blank=True)
  
@@ -167,20 +167,24 @@ class Subject(models.Model):
        """String for representing the Model object."""
        return f'{self.name}'
 
-"""#-------------------part 7------------------------#
+#-------------------part 7------------------------#
  
-class Tags(models.Model):
+class Tag(models.Model):
    #Model representing Tags.
+   name = models.CharField(max_length=40, default="Tag")
+   reviews = models.ForeignKey('Review', help_text="Select a tag for this tag",  on_delete=models.SET_NULL, null=True)
 
-   tag_choices = (('easy','Easy'), ('hard','Hard'), ('Interesting','Interesting'), ('boring','Boring'), ('attendence','Attendence Graded'), ('gen-ed','Gen-Ed'), ('professor','Great Professsor'), ('homework','Lots of Homework'), ('exam','Exam-Heavy'))
-   tags = models.CharField(max_length=100, choices = tag_choices, blank = True);
-   courseOfTag = models.ForeignKey('Course', help_text="Select a course for this description",  on_delete=models.SET_NULL, null=True)
+   #tag_choices = (('easy','Easy'), ('hard','Hard'), ('Interesting','Interesting'), ('boring','Boring'), ('attendence','Attendence Graded'), ('gen-ed','Gen-Ed'), ('professor','Great Professsor'), ('homework','Lots of Homework'), ('exam','Exam-Heavy'))
+   #tags = models.CharField(max_length=100, choices = tag_choices, blank = True);
+   #courseOfTag = models.ForeignKey('Course', help_text="Select a course for this description",  on_delete=models.SET_NULL, null=True)
    class Meta:
-       ordering = ['tags']
+       ordering = ['name']
+
+   def get_absolute_url(self):
+       """Returns the url to access a particular subject."""
+       return reverse('tag-detail', args=[str(self.id)])
 
    def __str__(self):
-       #String for representing the Model object.
+       """String for representing the Model object."""
        return f'{self.name}'
-
-       """
 

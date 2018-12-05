@@ -1,4 +1,4 @@
-from classdoor.models import Subject, Course, University, Review, Teacher, ClassdoorUser
+from classdoor.models import Subject, Course, University, Review, Teacher, ClassdoorUser, Tag
 from faker import Faker
 from django.contrib.auth.models import User
 from datetime import timedelta
@@ -21,9 +21,24 @@ subjects = [
     Subject(name="English", abbreviation="ENG"),
 ]
 
+tag_choices = [
+    Tag(name='Easy'), 
+    Tag(name ='Hard'), 
+    Tag(name ='Interesting'), 
+    Tag(name ='Boring'),
+    Tag(name ='Attendence Graded'),
+    Tag(name ='Gen-Ed'),
+    Tag(name ='Great Professsor'),
+    Tag(name ='Lots of Homework'),
+    Tag(name ='Exam-Heavy'),
+]
 # Save the subjects to the database
 for subj in subjects:
     subj.save()
+
+# save hte tags to the database
+for tag in tag_choices:
+    tag.save()
 
 # Create Universities
 unis = []
@@ -100,7 +115,7 @@ for i in range(0, len(courses) - 1):
     rGrade = Decimal(1)
 
     for j in range(1, fake.random_int(3, 20)):
-        rStarRating = Decimal(fake.random_int(0, 500)) / 100
+        rStarRating = fake.random_int(0, 5)
         rTitle = fake.text(25)
         rText = fake.text(200)
         rAuthor = cdoorusers[fake.random_int(0, len(cdoorusers)-1)]
@@ -116,8 +131,14 @@ for i in range(0, len(courses) - 1):
         review.save()
         reviews.append(review)
 
+        for t in Tag.objects.all():
+            if(fake.random_int(0, 99) < 33):
+                    review.tags.add(t)
+
         currClass.reviews.add(review)
         currClass.save()
+
+
 
 for eachUser in cdoorusers:
     toAdd =[]
@@ -128,6 +149,9 @@ for eachUser in cdoorusers:
 print('Subjects:')
 for s in Subject.objects.all():
     print(s)
+print('Tags:')
+for t in Tag.objects.all():
+    print(t)
 
 print('\nUniversities:')
 for u in University.objects.all():

@@ -1,6 +1,6 @@
 import re
 from django.shortcuts import render, redirect
-from classdoor.models import Course, Teacher, Review, University, ClassdoorUser, Subject
+from classdoor.models import Course, Teacher, Review, University, ClassdoorUser, Subject, Tag
 from django.db.models.query import EmptyQuerySet
 #Form Imports
 from django.forms import ModelForm
@@ -49,7 +49,12 @@ def classpage(request, id):
     reviewClass = '/review/' + str(id)
 
     reviewList = []
+    tagList = set()
 
+    tags = []
+    for r in reviews:
+        for t in r.tags.all():
+            tagList.add(t)
     # Get the information about all the individual reviews in the list
     for rdata in reviews:
         reviewData = {}
@@ -68,7 +73,8 @@ def classpage(request, id):
     context = {
         "class": courseData,
         "review_list": reviewList,
-        "review_class_url": reviewClass
+        "review_class_url": reviewClass,
+        "tag_list": tagList
     }
 
     return render(request, "class.html", context=context)
@@ -134,6 +140,7 @@ def review(request, id):
 
     course_object = Course.objects.get(pk=id)
     course_name = course_object.name
+    # all_tags = Tag.objects.all()
 
     form = WriteReviewForm(request.POST)
 
@@ -157,12 +164,14 @@ def review(request, id):
                 starRating = starRating,
                 gradeReceived = gradeReceived,
                 date = date,
-                tags = tags,
+                #tags = tags,
                 courseOfReview = courseOfReview,
                 author = author,
                 )
 
-
+            new_review.tags.set(tags)
+            for t in tags:
+                print(t)
             new_review.save()
             course_object.reviews.add(new_review)
 
@@ -184,6 +193,7 @@ def review(request, id):
         "course_name": course_name,
         "this_course": course_object,
         "form": form,
+        # "all_tags": all_tags,
     }
 
     return render(request, "WriteReviewTemplate.html", context = context)
@@ -202,9 +212,12 @@ class WriteReviewForm(ModelForm):
             'text':forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Tell us about your experience in this class'}),
             'starRating': forms.Select(attrs={'class': 'form-control'}),
             'gradeReceived': forms.Select(attrs={'class': 'form-control'}),
-            'tags': forms.CheckboxSelectMultiple#(attrs={'class': 'custom-control custom-checkbox custom-control-inline'})
+            'tags': forms.CheckboxSelectMultiple(attrs={'class': 'radio-inline'})
         }
         required ={
             'gradeReceived': False,
             'tags': False
+        }
+        allow_multiple_selected = {
+            'tags': True
         }
