@@ -5,6 +5,21 @@
     <link rel="stylesheet" href="{% static 'css/feed.css' %}">
 {% endblock %} 
 {% block content %}
+    <style>
+    .center {
+      text-align: center;
+    }
+    </style>
+  <form action="" method="post">
+    {% csrf_token %}
+<!--     <table> -->
+    <!-- {{ form.as_table }} -->
+    <div class="card center">
+        <p class="card-text">Star Rating: {{form.starRating}} Average Grade: {{form.averageGrade}} Subject: {{form.subject}} University: {{form.university_name}} <input type="submit" class = "btn btn-primary" value="Submit"> </p>
+    </div>
+  <!--   </table> -->
+    
+  </form>
 
 <ul id="feedList">
     {% for class in course_data %}

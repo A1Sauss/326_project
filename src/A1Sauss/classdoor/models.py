@@ -13,16 +13,19 @@ from django.dispatch import receiver
 
 class Course(models.Model):
    """Model representing a specific class"""
+   star_choices= (('5','5'),('4','4'),('3','3'),('2','2'),('1','1'))
+   grade_choices = (('a','A'), ('a-', 'A-'), ('b+','B+'), ('b','B'), ('b-','B-'), ('c+', 'C+'), ('c', 'C'), ('c-', 'C-'), ('d+', 'D+'), ('d', 'D'), ('d', 'D-'), ('f', 'F'))
+
    name = models.CharField(max_length=200)
    teacher = models.ForeignKey('Teacher', on_delete=models.SET_NULL, null=True)
    description = models.TextField(max_length=500, help_text = "Description of the course")
    #needs a method to calculate average rating
-   starRating = models.DecimalField(max_digits=2, decimal_places=1)
+   starRating = models.DecimalField(max_digits=2, decimal_places=1, choices = star_choices)
    #changed reviews back to manytomany field
    reviews = models.ManyToManyField('Review', help_text="Select a review for this class", blank=True)
    #changed grade range
    'Not sure if we need grade for the class since we have grade in review'
-   averageGrade = models.DecimalField(max_digits=2, decimal_places=1)
+   averageGrade = models.CharField(max_length=2, choices = grade_choices, blank = True);
    #needs to be able to choose multiple preReqs
    'preReq needs to be fullfilled with other classes, requires more work to implement it'
    #preReq = models.ManyToManyField('PreReq', help_text="Select a preReq for this class", blank=True)

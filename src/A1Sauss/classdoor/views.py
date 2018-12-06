@@ -99,32 +99,76 @@ def feed(request):
     courses = Course.objects.all()
     coursesArr = []
 
-    for course in courses:
-        courseData = {}
-        
-        if query and not query.lower() in course.name.lower():
-            continue
-        
-        if university and not university.lower() in course.university_name.name.lower():
-            continue
+    form = feedQueryForm(request.POST)
 
-        numIndex = re.search("\d", course.name)
+    if request.method == 'POST':
 
-        courseData["class"] = course
-        courseData["subject"] = course.name[0: numIndex.start()]
-        courseData["number"] = course.name[numIndex.start(): len(course.name)]
-        courseData["description"] = course.description
-        courseData["star_rating"] = course.starRating
+        if form.is_valid():
 
-        review = course.reviews.all().first()
+            starRating = form.cleaned_data['starRating']
+            averageGrade = form.cleaned_data['averageGrade']
+            subject = form.cleaned_data['subject']
+            university_name = form.cleaned_data['university_name']
 
-        if review:
-            courseData["featured_title"] = review.title
-            courseData["featured_text"] = review.text
+            for course in courses:
+                courseData = {}
+                
+                if starRating is not course.starRating:
+                    continue
+                
+                if averageGrade is not course.averageGrade:
+                    continue
 
-        coursesArr.append(courseData)
+                if subject is not course.subject:
+                    continue
+
+                if university_name is not course.university_name:
+                    continue
+
+                numIndex = re.search("\d", course.name)
+
+                courseData["class"] = course
+                courseData["subject"] = course.name[0: numIndex.start()]
+                courseData["number"] = course.name[numIndex.start(): len(course.name)]
+                courseData["description"] = course.description
+                courseData["star_rating"] = course.starRating
+
+                review = course.reviews.all().first()
+
+                if review:
+                    courseData["featured_title"] = review.title
+                    courseData["featured_text"] = review.text
+
+                coursesArr.append(courseData)
+
+    else:
+        for course in courses:
+            courseData = {}
+            
+            if query and not query.lower() in course.name.lower():
+                continue
+            
+            if university and not university.lower() in course.university_name.name.lower():
+                continue
+
+            numIndex = re.search("\d", course.name)
+
+            courseData["class"] = course
+            courseData["subject"] = course.name[0: numIndex.start()]
+            courseData["number"] = course.name[numIndex.start(): len(course.name)]
+            courseData["description"] = course.description
+            courseData["star_rating"] = course.starRating
+
+            review = course.reviews.all().first()
+
+            if review:
+                courseData["featured_title"] = review.title
+                courseData["featured_text"] = review.text
+
+            coursesArr.append(courseData)
 
     context["course_data"] = coursesArr
+    context["form"] = form
 
     return render(request, "feed.html", context=context)
 
@@ -241,3 +285,23 @@ class WriteReviewForm(ModelForm):
         allow_multiple_selected = {
             'tags': True
         }
+
+
+class feedQueryForm(ModelForm):
+    class Meta:
+        model = Course
+        fields = ['starRating', 'averageGrade', 'subject', 'university_name']
+        #Maybe set text required for some forms
+        #labels = {'gradeReceived': ('What grade did you recieve in this class?')}
+        required ={
+            'starRating': False,
+            'averageGrade': False,
+            'subject': False,
+            'university_name': False,
+        }
+        # widgets ={
+        #     'starRating':forms.Select(attrs={'class': 'form-inline'}),
+        #     'averageGrade':forms.Select(attrs={'class': 'form-inline'}),
+        #     'subject': forms.Select(attrs={'class': 'form-inline'}),
+        #     'university_name': forms.Select(attrs={'class': 'form-inline'}),
+        # }

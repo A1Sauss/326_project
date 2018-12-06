@@ -84,6 +84,33 @@ for i in range(1, 10):
     c.save()
     courses.append(c)
 
+#Create CS326
+subject = subjects[0]
+subject.save()
+uni = unis[fake.random_int(0, len(unis) - 1)]
+teachFirstName = "Tim"
+teachLastName = "Richards"
+
+
+cName = "CS326"
+cTeacher = Teacher(first_name=teachFirstName, last_name=teachLastName)
+cTeacher.save()
+cDesc = fake.text(1000)
+cAvgGrade = Decimal(1)
+cStarRating = Decimal(fake.random_int(0, 500)) / 100
+
+c = Course(name=cName,
+            teacher=cTeacher,
+            description=cDesc,
+            averageGrade=cAvgGrade,
+            starRating=cStarRating,
+            subject=subject,
+            university_name=uni)
+
+c.save()
+courses.append(c)
+
+
 users = []
 print("Generated users:")
 for i in range(1,20):
@@ -183,19 +210,14 @@ print("group Course Admin added with permissions to add a course")
 message = f"""
 ====================================================================
 The database has been setup with the following credentials:
-
   username: {username}
   password: {password}
   email: {email}
-
 You will need to use the username {username} and password {password}
 to login to the administrative webapp in Django.
-
 Please visit http://localhost:8080/admin to login to the admin app.
 Run the django server with:
-
   $ python3 manage.py runserver 0.0.0.0:8080"
 ====================================================================
 """
 print(message)
-
