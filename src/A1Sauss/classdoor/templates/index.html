@@ -7,9 +7,14 @@
 
 {% block content %}
     <!-- Full Page Intro -->
-          <div class="view">
+          {% load static %}
+          <div class="view" style="background-image: url('{% static 'images/sunset_bg1.jpg'%}')">
+<!--                 <style>
+                  {%load static%}
+                    background-image: url("../images/sunset_bg1.jpg");
+                </style> -->
             <!-- Mask & flexbox options-->
-            <div class="mask rgba-gradient d-flex justify-content-center align-items-center">
+            <div class=" mask rgba-gradient d-flex justify-content-center align-items-center">
               <!-- Content -->
               <div class="container">
                 <!--Grid row-->
