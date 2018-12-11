@@ -34,7 +34,8 @@ Matthew Dahl
 
 Class Course has all attributes relating to a course. It connects to class University, class Subject and class Teacher where a course will be classified into different universities, subjects and teachers. The class Reviews is where users can write reviews for courses. Class Tag marks the user and the review that user wrote. Class User stores all personal information of a user and reviews that user has written. 
 
-**URL Routes/Mappings: **
+**URL Routes/Mappings:**
+
 /		Home page - Permission: Open to everyone
 /admin		Admin page - Permission: Must log in as an admin to access
 /class/<int:id>		Individual class page showing the information and reviews about the class - Permission: Open to everyone
@@ -45,13 +46,16 @@ Class Course has all attributes relating to a course. It connects to class Unive
 /accounts/login		Page to login as a user - Permission: Open to everyone
 
 
-**Authentication/Authorization: **
+**Authentication/Authorization:**
+
 First we have authentication working with the ability for a user to log in and log out at will and while they are logged in they can view their unique profile page with information specifically tailored to them. You can also only leave a review if you are authenticated.
 
 **Team Choice:**
+
 We created search functions for our website where people can search courses by either typing course name or university name or using search bar in the feed page. Typing course name will return all courses that match the criteria from all universities. Typing university name will return all courses a certain university offers. In feed page, there’s a search bar at the top of the page where a user can search a course with more specific criterias. One thing needs to pay attention is that in order to use the search bar, a user must fill out all sections to search.
 
 **Conclusion:**
+
 This project was unlike any other in our college experiences. Normally you will have a project in a class that is a small part of overall theme of the class but to have this be the center focus in this class was awesome! We had to balance out our time throughout the semester and had to stay focused. Some things we learned were mainly centered around web design and how to implement a django framework. The things that we learned were not just specific to creating the best class searching app in the world but were things we could take and implement anywhere for any application. Such as user authentication and data models. 
 Some difficulties were getting the pages that needed to dynamically show different things depending on what user was logged in or what class needed to be displayed. We also took a little time to get in the habit of using github correctly. Some things I think we would have liked to known would have been the time commitment for some of the aspects of the project. 
 Overall we had such a great time and would not trade this class for anything!  
